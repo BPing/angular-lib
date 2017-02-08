@@ -1,0 +1,40 @@
+<nav class="page-list" aria-label="Page navigation">
+    <ul class="pagination">
+        <li ng-class="{'disabled':pageConf.curPage==1}">
+            <a href="" ng-click="pageConf.onFirstPage()" aria-label="First">
+                <span aria-hidden="true">首页</span>
+            </a>
+        </li>
+
+        <li ng-class="{'disabled':pageConf.curPage==1}">
+            <a href="" ng-click="pageConf.onPrevPage()" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li ng-repeat="pageInfo in pageConf.pagesList" ng-class="{'active':pageInfo.cur}">
+            <a href="" ng-click="pageConf.onChangeCurPage(pageInfo.id)">{{pageInfo.tag}}</a>
+        </li>
+        <li ng-class="{'disabled':pageConf.curPage==pageConf.totalPages}">
+            <a href="" ng-click="pageConf.onNextPage()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+
+        <li ng-class="{'disabled':pageConf.curPage==pageConf.totalPages}">
+            <a href="" ng-click="pageConf.onLastPage()" aria-label="First">
+                <span aria-hidden="true">末页</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="page-total">第<input type="text" ng-model="pageConf.curPage"
+                                    ng-keyup=""
+                                    class="ng-pristine ng-valid">页 每页 <strong
+            class="ng-binding">{{pageConf.totalPages}}</strong>
+        <!--<select-->
+        <!--ng-model="conf.itemsPerPage" ng-options="option for option in conf.perPageOptions "-->
+        <!--ng-change="changeItemsPerPage()" class="ng-pristine ng-valid">-->
+        <!--</select>-->
+        条/共 <strong class="ng-binding">{{pageConf.totalNum}}</strong> 条
+    </div>
+</nav>
