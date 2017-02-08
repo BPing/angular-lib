@@ -14,7 +14,7 @@
                 pageReqFn: "&"
             },
             templateUrl:function($element, $attr) {
-                      return  $attr.pagePath + "pagination.html";
+                      return  $attr.pageHtmlDir + "pagination.html";
                  },
             compile: function appPageCompile($element, $attr) {
                 // console.dir($attr);
