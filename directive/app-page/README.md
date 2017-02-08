@@ -1,6 +1,8 @@
 # app-page
   分页指令
   
+ ![效果图](https://github.com/BPing/angular-lib/blob/master/directive/app-page/app-page.png?raw=true)
+ 
 # 依赖
  * angularJs  v1
  * bootstrap  v3
