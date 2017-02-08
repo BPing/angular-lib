@@ -13,7 +13,9 @@
                 // page-req-fn="f(c,p,f)"
                 pageReqFn: "&"
             },
-            templateUrl: "view/pagination.html",
+            templateUrl:function($element, $attr) {
+                      return  $attr.pagePath + "pagination.html";
+                 },
             compile: function appPageCompile($element, $attr) {
                 // console.dir($attr);
                 // // 绑定在父级$scope的变量名。默认‘appPage’。
