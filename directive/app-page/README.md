@@ -11,7 +11,7 @@
 
   app-page
 
-  ## 配置参数
+## 配置参数
 
   * `page-conf` : 绑定在父级$scope的变量。以便父级$scope调用
   * `page-per-num`: 每一页的条数。默认15
