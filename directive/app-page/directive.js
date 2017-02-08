@@ -5,8 +5,12 @@
             restrict: "EAC",
             replace: true,
             scope: {
+                // 绑定在父级$scope的变量
+                // page-conf="pf"
                 pageConf: "=",
+                // 绑定在父级$scope的操作函数名。
                 // f(curPage, perPageNum, f)
+                // page-req-fn="f(c,p,f)"
                 pageReqFn: "&"
             },
             templateUrl: "view/pagination.html",
