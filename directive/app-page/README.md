@@ -14,15 +14,15 @@
   ## 配置参数
 
   * `page-conf` : 绑定在父级$scope的变量。以便父级$scope调用
-  * `page-html-dir` : templateUrl的相对路径。
   * `page-req-fn` : 绑定在父级$scope的操作函数名。只要是用来获取数据。page-req-fn="父级$scope函数名(c,p,f)"
   * `page-per-num`: 每一页的条数。默认15
   * `pages-length` : 显示多少页数。超过部分用...代替。默认8
   * `page-max-per-num` : 一页最多显示条数。默认100
   * `page-total-num` : 总条数。默认0.会随着数据变动而变化的。
+  * `page-html-dir` : templateUrl的相对路径
 
-  ## 可用变量和方法
-
+## 可用变量和方法
+ 
   绑定在`page-conf`指定的变量上，对象结构如下：
 
   ```javascript
