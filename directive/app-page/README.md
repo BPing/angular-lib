@@ -2,6 +2,20 @@
   分页指令
   
  ![效果图](https://github.com/BPing/angular-lib/blob/master/directive/app-page/app-page.png?raw=true)
+
+# 快速开始
+
+```javascript
+...bootstrap
+<link rel="stylesheet" type="text/css" href="pagination.css">
+...angular
+<script type="text/javascript" src="directive.js"></script>
+...other
+<!--分页-->
+<div app-page="" page-conf="homeWorkPage" page-html-dir=""
+     page-req-fn="getHomework(c, p, f)" page-per-num=5 page-length=3>
+</div>
+```
  
 # 依赖
  * angularJs  v1
@@ -19,7 +33,8 @@
   * `page-max-per-num` : 一页最多显示条数。默认100
   * `page-total-num` : 总条数。默认0.会随着数据变动而变化的。
   * `page-html-dir` : templateUrl的相对路径
-  * `page-req-fn` : 绑定在父级$scope的操作函数名。只要是用来获取数据。page-req-fn="父级$scope函数名(c,p,f)"
+  * `page-req-fn` : 绑定在父级$scope的操作函数名。只要是用来获取数据。page-req-fn="父级$scope函数名(c,p,f)";
+                    f的函数结构是 f(totalNum);
 
 ## 可用变量和方法
  
@@ -43,7 +58,7 @@
                           // 改变每一页条数
                           onChangePerPageNum: function (perPageNum) {},
                           // 下一页
-                          onNextPage: function () {  },
+                          onNextPage: function () { },
                           // 上一页
                           onPrevPage: function () {},
                           // 首页
