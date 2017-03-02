@@ -23,6 +23,8 @@
                 // // 绑定在父级$scope的操作函数名。
                 // // f(page,pageNum,f(totalNum))
                 // var pageReqFnName = $attr.pageReqFn;
+                // 是否通知？如果不为空则 $scope.$broadcast(pageInitNotify, "init end");
+                var pageInitNotify = $attr.pageInitNotify || "";
                 // 每一页的条数。默认15
                 var pagePerNum = $attr.pagePerNum || 15;
                 // 显示多少页数。超过部分用...代替。默认8
@@ -32,7 +34,9 @@
                 // 总条数。默认0
                 var pageTotalNum = $attr.pageTotalNum || 0;
                 // 初始化是否发出数据请求。默认false
-                var pageInit = $attr.pageInit || false;
+                var pageInit = $attr.pageInit && $attr.pageInit === 'true';
+                // 如果为true传的总条数，否则传的是总页数 默认 true
+                var isTotalNum = !$attr.pageIsNum || $attr.pageIsNum !== 'false';
                 // 返回连接函数
                 return function appPageLink($scope, $element, $attr, ctrl, $transclude) {
                     // console.dir($scope.pageConf);
@@ -41,7 +45,7 @@
                         };
 
                     var paginationConf = $scope.pageConf = {
-                        watchTag: false,
+                        isTotalNum: isTotalNum,
                         curPage: 1,
                         perPageNum: pagePerNum,
                         maxPerPageNum: pageMaxPerNum,
@@ -57,13 +61,17 @@
                             pageReqFn({
                                 c: this.curPage,
                                 p: this.perPageNum,
-                                f: function (totalNum) {
-                                    ctx.totalNum = totalNum;
-                                    ctx.totalPages = Math.ceil(ctx.totalNum / ctx.perPageNum);
-
+                                f: function (totalNumOrPage) {
+                                    if (ctx.isTotalNum) {
+                                        ctx.totalNum = totalNumOrPage;
+                                        ctx.totalPages = Math.ceil(ctx.totalNum / ctx.perPageNum);
+                                    } else {
+                                        ctx.totalPages = totalNumOrPage;
+                                    }
                                     // 页码计算，过长时候用'...'代替
                                     var start = 1, end = ctx.totalPages;
                                     ctx.pagesList = [];
+
                                     do {
                                         if (ctx.totalPages <= ctx.pagesLength) break;
                                         var prevC, suffixC = 0;
@@ -92,12 +100,16 @@
                                     if (end !== ctx.totalPages) {
                                         ctx.pagesList.push({id: -1, tag: "...", cur: false})
                                     }
+                                    // 如果没有数据，则默认为一页
+                                    if (ctx.pagesList.length == 0) {
+                                        ctx.pagesList.push({id: 1, tag: "1" + "", cur: true})
+                                    }
                                 }
                             });
                         },
                         // 改变当前页数
                         onChangeCurPage: function (curPage) {
-                            console.dir("onChangeCurPage");
+                            // console.dir("onChangeCurPage");
                             // 允许首页加载
                             if (curPage !== 1 && (curPage <= 0 || curPage > this.totalPages)) {
                                 return;
@@ -123,6 +135,7 @@
                         },
                         // 首页
                         onFirstPage: function () {
+                            // console.log('%conFirstPage','color:#fff;background:red');
                             this.onChangeCurPage(1);
                         },
                         // 尾页
@@ -134,11 +147,13 @@
                     if (pageInit) {
                         paginationConf.httpReq();
                     }
-                    // 监测是否需要重新请求数据
-                    $scope.$watch("pageConf.watchTag", function (newVal, oldVal) {
-                        if (newVal !== oldVal)
-                            paginationConf.httpReq();
-                    });
+
+                    // 广播初始完成通知
+                    if (pageInitNotify !== "") {
+                        // console.log('%c' + pageInitNotify, 'color:#fff;background:red');
+                        // console.dir($scope.pageConf);
+                        $rootScope.$broadcast(pageInitNotify, "init end");
+                    }
                 };
             }
         }
