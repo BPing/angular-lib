@@ -46,24 +46,24 @@
                     // $parse表达式
                     var fn = $parse($attr["mouseClick"], /* interceptorFn */ null, /* expensiveChecks */ true);
                     // 是否阻止事件传递，默认为false。
-                    var isStopPropagation = $attr["mousePropagation"] || false;
+                    var _isStopPropagation = $attr["mousePropagation"] && $attr["mousePropagation"]=== 'true';
                     // 返回连接函数
                     return function mouseClickLink($scope, $element, $attr) {
                         // console.log("mouseClickLink");
                         // 是否有鼠标移动事件存在
                         var _isMouseMoved = false;
                         $element.on("mousedown", function (event) {
-                            if (isStopPropagation)
+                            if (_isStopPropagation)
                                 event.stopPropagation();
                             _isMouseMoved = false;
                         });
                         $element.on("mousemove", function (event) {
-                            if (isStopPropagation)
+                            if (_isStopPropagation)
                                 event.stopPropagation();
                             _isMouseMoved = true;
                         });
                         $element.on("mouseup", function (event) {
-                            if (isStopPropagation)
+                            if (_isStopPropagation)
                                 event.stopPropagation();
                             // 如果有移动，则不是click事件
                             if (_isMouseMoved) return;
