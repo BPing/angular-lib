@@ -1,6 +1,7 @@
-!(function ($app) {
+!(function (angular) {
     // 应用分页指令
-    $app.directive("appPage", function () {
+    angular.module('appPage', [])
+        .directive("appPage", function () {
         return {
             restrict: "EAC",
             replace: true,
@@ -158,5 +159,5 @@
             }
         }
     });
-})(myApp);
+})(angular);
 

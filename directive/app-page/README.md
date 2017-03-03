@@ -34,7 +34,9 @@
   * `page-total-num` : 总条数。默认0.会随着数据变动而变化的。
   * `page-html-dir` : templateUrl的相对路径
   * `page-req-fn` : 绑定在父级$scope的操作函数名。只要是用来获取数据。page-req-fn="父级$scope函数名(c,p,f)";
-                    f的函数结构是 f(totalNum);
+                    `f`的函数结构是 `f(totalNum)`;
+  * `page-is-num`:  如果为true传的总条数，也就是 `page-req-fn` 中 `f` 函数 `f(totalNum)`。
+                   否则传的是总页数 默认 true，`page-req-fn` 中 `f` 函数 `f(totalPage)`。                
 
 ## 可用变量和方法
  
